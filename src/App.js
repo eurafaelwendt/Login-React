@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react';
 import './App.css';
-// import Header from './Header.js';
 import Login from './Login.js';
 import Home from './Home.js';
-// import Header from './Header.js';
+import Cadastrar from './Cadastrar.js';
+import Edit from './Edit.js';
+import Usuarios from './Usuarios.js';
+import Excluir from './Excluir.js';
 
 import {
   BrowserRouter as Router,
@@ -17,10 +19,22 @@ export default function App() {
     <Fragment>
       <Router>
         <div className='container'>
-          {/* <Header></Header> */}
           <Switch>
+            <Route path='/excluir'>
+              <Edit></Edit>
+              <Excluir></Excluir>
+            </Route>
+            <Route path='/usuarios'>
+              <Usuarios></Usuarios>
+            </Route>
+            <Route path='/edit'>
+              <Edit></Edit>
+            </Route>
             <Route path='/home'>
               <Home></Home>
+            </Route>
+            <Route path='/cadastro'>
+              <Cadastrar></Cadastrar>
             </Route>
             <Route path='/'>
               <Login></Login>

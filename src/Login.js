@@ -1,24 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 
 export default function Login() {
 
     const history = useHistory();
-
-    const [contadorCadastro, setContadorCadastro] = useState(0);
     const [contadorEntrada, setContadorEntrada] = useState(0);
     var storage;
 
-    const avisosCadastro = [
-        { texto: '' },
-        { texto: 'O campo deve ser preenchido obrigatóriamente!', className: 'danger' },
-        { texto: 'O nome digitado já existe!', className: 'warning' },
-        { texto: 'Cadastro realizado com sucesso!', className:'success' }
-    ];
+    const Cadastro = () => {
+        history.push('/cadastro');
+    }
 
     const avisosEntrada = [
         { texto: '' },
-        { texto: 'Usuário digitado não encontrado!', className: 'danger' }
+        { texto: 'Usuário ou senha não encontrado!', className: 'danger' },
+        { texto: 'Os campos devem ser preenchidos obrigatóriamente!', className: 'danger'}
     ];
 
     if (localStorage.getItem('Usuários') === null) {
@@ -27,71 +23,61 @@ export default function Login() {
         storage = JSON.parse(localStorage.getItem('Usuários'));
     }
 
-    const [usuarios, setUsuarios] = useState(storage);
-    const [value, setValue] = useState('');
+    const [usuarios] = useState(storage);
+    const [usuario, setUsuario] = useState('');
+    const [senha, setSenha] = useState('');
 
-    // Pega o conteúdo digitado no input
-    const Conteudo = event => {
+    // Pega o conteúdo digitado no input Usuário
+    const inputUsuario = event => {
 
-        const texto = event.target.value;
-
-        setTimeout(() => {
-            setValue(texto);
-        }, 0)
+        var texto = event.target.value;
+        setUsuario(texto);
     }
 
-    // Verifica e cadastra um novo usuário
-    const Cadastro = (event) => {
+    // Pega o conteúdo digitado no input Senha
+    const inputSenha = event => {
 
-        const valida = usuarios.find(usuario => usuario.nome === value);
-        if (value === '') {
-            setContadorEntrada(0);
-            setContadorCadastro(1);
-        } else if (valida) {
-            setContadorEntrada(0);
-            setContadorCadastro(2);
-        } else {
-            setUsuarios([
-                ...usuarios,
-                { nome: value }
-            ]);
-            setContadorEntrada(0);
-            setContadorCadastro(3);
-        }
-        event.preventDefault(5000);
+        var texto = event.target.value;
+        setSenha(texto);
     }
-
-    useEffect(() => {
-        localStorage.setItem('Usuários', JSON.stringify(usuarios));
-    });
 
     // Verifica e realiza a autenticação do usuário
     const Entrar = (event) => {
 
-        const login = usuarios.find(usuario => usuario.nome === value);
+        const pass = usuarios.find(nome => {
+            if (nome.usuario === usuario){
+                if (nome.senha === senha){
+                    return nome;
+                }
+            }
+        });
 
-        if (value === '') {
-            setContadorCadastro(1);
-        } else if (login) {
-            setContadorCadastro(0);
+        if (usuario === '' || senha === '') {
+            setContadorEntrada(2);
+        } else if (pass) {
+            localStorage.setItem('Login', JSON.stringify(pass));
             history.push('/home');
         } else {
-            setContadorCadastro(0);
             setContadorEntrada(1);
         }
         event.preventDefault();
     }
 
+    const Users = () => {
+        history.push('/usuarios');
+    }
+
     return (
         <form>
             <h1>Empresas Moura</h1>
-            <input autoComplete='off' type='text' name='name' placeholder='Nome...' onChange={Conteudo}></input>
+            <input autoComplete='off' type='text' name='name' placeholder='Usuário...' onChange={inputUsuario}></input>
+            <input autoComplete='off' type='password' name='pass' placeholder='Senha...' onChange={inputSenha}></input>
             <br />
-            <span className={avisosCadastro[contadorCadastro].className}>{avisosCadastro[contadorCadastro].texto}</span>
             <span className={avisosEntrada[contadorEntrada].className}>{avisosEntrada[contadorEntrada].texto}</span>
             <br />
             <button onClick={Entrar}>Entrar</button>
-            <button onClick={Cadastro}>Cadastrar</button>
+            <button onClick={Cadastro}>Cadastrar-se</button>
+            <button onClick={Users}>Listar usuários</button>
         </form>
     );
 }
