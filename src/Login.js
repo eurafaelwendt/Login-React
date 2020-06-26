@@ -7,8 +7,8 @@ export default function Login() {
     const [contadorEntrada, setContadorEntrada] = useState(0);
     var storage;
 
-    const Cadastro = () => {
-        history.push('/cadastro');
+    const Voltar = () => {
+        history.push('/');
     }
 
     const avisosEntrada = [
@@ -69,15 +69,19 @@ export default function Login() {
 
     return (
         <form>
-            <h1>Empresas Moura</h1>
+            <h1 style={{marginLeft:'110px'}}>Entrar</h1>
             <input autoComplete='off' type='text' name='name' placeholder='Usuário...' onChange={inputUsuario}></input>
+            <br></br>
             <input autoComplete='off' type='password' name='pass' placeholder='Senha...' onChange={inputSenha}></input>
             <br />
-            <span className={avisosEntrada[contadorEntrada].className}>{avisosEntrada[contadorEntrada].texto}</span>
+            <p style={{marginLeft:'60px', color: 'grey'}}>Não tem uma conta? <a href='/cadastro' style={{textDecoration:'none', color:'#3498DB'}}>Crie uma!</a></p>
+            <span style={{marginLeft:'30px'}} className={avisosEntrada[contadorEntrada].className}>{avisosEntrada[contadorEntrada].texto}</span>
             <br />
+            <button style={{marginLeft:'55px'}} onClick={Voltar}>Voltar</button>
             <button onClick={Entrar}>Entrar</button>
-            <button onClick={Cadastro}>Cadastrar-se</button>
-            <button onClick={Users}>Listar usuários</button>
+            {/* <button onClick={Cadastro}>Cadastrar-se</button> */}
+            <br></br>
+            <button style={{marginLeft:'85px'}} onClick={Users}>Listar usuários</button>
         </form>
     );
 }

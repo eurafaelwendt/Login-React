@@ -6,6 +6,8 @@ import Cadastrar from './Cadastrar.js';
 import Edit from './Edit.js';
 import Usuarios from './Usuarios.js';
 import Excluir from './Excluir.js';
+import Inicial from './Inicial.js';
+import Adiciona from './Adiciona.js';
 
 import {
   BrowserRouter as Router,
@@ -18,10 +20,13 @@ export default function App() {
   return (
     <Fragment>
       <Router>
-        <div className='container'>
+        <div>
           <Switch>
+          <Route path='/adiciona'>
+              <Adiciona></Adiciona>
+            </Route>
             <Route path='/excluir'>
-              <Edit></Edit>
+              {/* <Edit></Edit> */}
               <Excluir></Excluir>
             </Route>
             <Route path='/usuarios'>
@@ -36,8 +41,11 @@ export default function App() {
             <Route path='/cadastro'>
               <Cadastrar></Cadastrar>
             </Route>
-            <Route path='/'>
+            <Route path='/login'>
               <Login></Login>
+            </Route>
+            <Route path='/'>
+              <Inicial></Inicial>
             </Route>
           </Switch>
         </div>

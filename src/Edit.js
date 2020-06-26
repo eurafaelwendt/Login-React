@@ -16,7 +16,7 @@ export default function Edit() {
     const avisosCadastro = [
         { texto: '' },
         { texto: 'Os campos devem ser preenchidos obrigatóriamente!', className: 'danger' },
-        { texto: 'O nome de usuário deve ser diferente do atual!', className: 'warning' },
+        { texto: 'O nome de usuário digitado já existe!', className: 'warning' },
         { texto: 'Informações editadas com sucesso!', className: 'success' },
         { texto: 'Senhas digitadas não são iguais!', className: 'warning' }
     ];
@@ -69,8 +69,8 @@ export default function Edit() {
             })
             setDados(dados);
             setDados_Login(dados_login);
+            setTimeout(function(){ history.push('/home'); }, 1000); 
         }
-        setTimeout(function(){ history.push('/home'); }, 2000); 
         event.preventDefault();
     }
 
@@ -102,25 +102,28 @@ export default function Edit() {
 
     return (
         <form>
-            <h1>Informações</h1>
+            <h1 style={{marginLeft:'80px'}}>Informações</h1>
             <input onChange={Nome} type='text' placeholder='Novo nome...'></input>
-            <br />
-            <span>Nome atual: {login.nome}</span>
+            <br></br>
+            <span style={{marginLeft:'15px'}}>Nome atual: {login.nome}</span>
+            <br></br>
             <input onChange={Usuario} type='text' placeholder='Novo usuário...'></input>
-            <br />
-            <span>Usuario atual: {login.usuario}</span>
+            <br></br>
+            <span style={{marginLeft:'15px'}}>Usuario atual: {login.usuario}</span>
+            <br></br>
             <input onChange={Senha} type='text' placeholder='Nova senha...'></input>
-            <br />
-            <span>Senha atual: {login.senha}</span>
+            <br></br>
+            <span style={{marginLeft:'15px'}}>Senha atual: {login.senha}</span>
+            <br></br>
             <input onChange={SenhaN} type='text' placeholder='Senha Novamente...'></input>
-            <br />
-            <span>Senha atual: {login.senhan}</span>
-            <br />
-            <span className={avisosCadastro[contadorCadastro].className}>{avisosCadastro[contadorCadastro].texto}</span>
-            <br />
+            <br></br>
+            <span style={{marginLeft:'15px'}}>Senha atual: {login.senhan}</span>
+            <br></br>
+            <span style={{marginLeft:'30px'}} className={avisosCadastro[contadorCadastro].className}>{avisosCadastro[contadorCadastro].texto}</span>
+            <br></br>
             <button onClick={Voltar}>Voltar</button>
             <button onClick={Verifica}>Salvar</button>
-            <button onClick={Excluir}>Excluir conta</button>
+            <button style={{backgroundColor:'red'}} onClick={Excluir}>Excluir</button>
         </form>
     );
 }

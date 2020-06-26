@@ -6,9 +6,9 @@ export default function Cadastrar(){
     const history = useHistory();
     var storage;
 
-    function Logar(){
-        history.push('/login');
-    }
+    // function Voltar(){
+    //     history.push('/login');
+    // }
 
     if (localStorage.getItem('Usuários') === null) {
         storage = [];
@@ -49,6 +49,7 @@ export default function Cadastrar(){
                 { nome: nome, usuario: usuario, senha: senha, senhan: senhan }
             ]);
             setContadorCadastro(3);
+            setTimeout(function(){ history.push('/login'); }, 1000); 
         }
         event.preventDefault();
     }
@@ -76,16 +77,16 @@ export default function Cadastrar(){
 
     return (
         <form>
-            <h1>Cadastre-se</h1>
+            <h1 style={{marginLeft:'80px'}}>Cadastre-se</h1>
             <input onChange={Nome} type='text' placeholder='Nome...'></input>
             <input onChange={Usuario} type='text' placeholder='Usuário...'></input>
             <input onChange={Senha} type='password' placeholder='Senha...'></input>
             <input onChange={SenhaN} type='password' placeholder='Senha Novamente...'></input>
             <br/>
-            <span className={avisosCadastro[contadorCadastro].className}>{avisosCadastro[contadorCadastro].texto}</span>
+            <span style={{marginLeft:'30px'}} className={avisosCadastro[contadorCadastro].className}>{avisosCadastro[contadorCadastro].texto}</span>
             <br/>
-            <button onClick={Cadastro}>Cadastrar</button>
-            <button onClick={Logar}>Login</button>
+            {/* <button style={{marginLeft:'50px'}} onClick={Voltar}>Voltar</button> */}
+            <button style={{marginLeft:'110px'}} onClick={Cadastro}>Cadastrar</button>
         </form>
     );
 }

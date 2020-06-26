@@ -23,12 +23,12 @@ export default function () {
     const Sim = (event) => {
         const novo = dados.filter(dados => (dados.usuario !== login.usuario))
         setDados(novo);
+        setTimeout(function(){ history.push('/login'); }, 1000);
         event.preventDefault();
     }
 
     useEffect(() => {
-        localStorage.setItem('Usuários', JSON.stringify(dados));
-        setTimeout(function(){ history.push('/login'); }, 2000); 
+        localStorage.setItem('Usuários', JSON.stringify(dados)); 
     });
 
     const Nao = () => {
@@ -36,10 +36,10 @@ export default function () {
     }
 
     return (
-        <div>
-            <h1>Deseja exluir a sua conta?</h1>
+        <div className='container'>
+            <h1>Deseja excluir sua conta?</h1>
             <button onClick={Nao}>Não</button>
-            <button onClick={Sim}>Sim</button>
+            <button style={{backgroundColor:'red'}} onClick={Sim}>Sim</button>
         </div>
     );
 }

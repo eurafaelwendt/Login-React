@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Header(){
+export default function Links(){
     return (
         <nav>
             <Link to='/login'></Link>
@@ -10,6 +10,7 @@ export default function Header(){
             <Link to='/edit'></Link>
             <Link to='/usuarios'></Link>
             <Link to='/excluir'></Link>
+            <Link to='/adiciona'></Link>
         </nav>
     );
 }
